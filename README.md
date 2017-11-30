@@ -125,7 +125,7 @@
         connection.close();
         threadLocal.remove();
 
-## `MySQL`驱动
+## MySQL驱动
 [MySQL multi host connection 文档](https://dev.mysql.com/doc/connector-j/5.1/en/connector-j-multi-host-connections.html)
 
 MySQL 6.0.6版本的驱动有两个：`com.mysql.jdbc.Driver`和`com.mysql.cj.jdbc.Driver`，
