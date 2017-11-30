@@ -101,10 +101,10 @@
         ResultSetMetaData metaData = resultSet.getMetaData();
         int columnCount = metaData.getColumnCount();
         for (int i = 0; i < columnCount; i++) {
-        String columnName = metaData.getColumnName(i + 1);
-        int columnType = metaData.getColumnType(i + 1);
-        Object object = resultSet.getObject(i + 1);
-        log.info(String.format("column:%-15s, type:%-5s, value:%s", columnName, columnType, object));
+            String columnName = metaData.getColumnName(i + 1);
+            int columnType = metaData.getColumnType(i + 1);
+            Object object = resultSet.getObject(i + 1);
+            log.info(String.format("column:%-15s, type:%-5s, value:%s", columnName, columnType, object));
         }
         resultSet.close();
         connection.close();
