@@ -191,6 +191,7 @@ MySQL提供的负载策略有3种，分别为
         throw SQLError.createSQLException(Messages.getString("InvalidLoadBalanceStrategy", new Object[] { strategy }), SQLError.SQL_STATE_ILLEGAL_ARGUMENT,
                 t, null);
     }
+
 ### ReplicationConnection
 `slaves`的负载均衡与`LoadBalancedConnection`一致，由`public synchronized void setReadOnly(boolean readOnly)`方法来做`master-slave`的切换，
 具体方法实现看`com.mysql.cj.jdbc.ha.ReplicationMySQLConnection.setReadOnly(boolean readOnlyFlag)`。
