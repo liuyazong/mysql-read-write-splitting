@@ -160,7 +160,7 @@ MySQL 6.0.6版本的驱动有两个：`com.mysql.jdbc.Driver`和`com.mysql.cj.jd
     //test
     XDEVAPI_SESSION("mysqlx:", HostsCardinality.ONE_OR_MORE);
     
-然后，根据不同的连接类型返回不同的连接：
+然后，根据不同的连接类型返回不同的连接类型：
 
     com.mysql.cj.api.jdbc.JdbcConnection
     com.mysql.cj.api.jdbc.ha.LoadBalancedConnection
