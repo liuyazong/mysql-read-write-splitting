@@ -3,6 +3,15 @@
 1. 基于`Spring`
 2. 基于`MySQL`驱动
 
+使用到的jar：
+
+    mysql:mysql-connector-java:6.0.6
+    org.springframework:spring-jdbc:4.3.12.RELEASE
+    org.springframework:spring-context:4.3.12.RELEASE
+    org.apache.tomcat:tomcat-jdbc:9.0.1
+    junit:junit:4.12
+    ch.qos.logback:logback-classic:1.2.3
+    org.projectlombok:lombok:1.16.18
 ## 基于Spring
 ### AbstractRoutingDataSource
 基于`Spring`的数据库读写分离，主要在`AbstractRoutingDataSource`类中实现。
