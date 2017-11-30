@@ -159,7 +159,8 @@ MySQL 6.0.6版本的驱动有两个：`com.mysql.jdbc.Driver`和`com.mysql.cj.jd
 ### LoadBalancedConnection
 `LoadBalancedConnection`是一个逻辑连接(`LoadBalancedConnectionProxy`)，其内部持有一个`Map<String, ConnectionImpl> liveConnections;`用于存放到每一个主机的物理连接。
 ### ReplicationConnection
-`slaves`的负载均衡与`LoadBalancedConnection`一致，由`public synchronized void setReadOnly(boolean readOnly)`方法来做`master-slave`的切换。
+`slaves`的负载均衡与`LoadBalancedConnection`一致，由`public synchronized void setReadOnly(boolean readOnly)`方法来做`master-slave`的切换，
+具体方法实现看`com.mysql.cj.jdbc.ha.ReplicationMySQLConnection.setReadOnly(boolean readOnlyFlag)`。
 ### 示例程序
 #### 数据源配置
 
