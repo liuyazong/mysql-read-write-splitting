@@ -168,6 +168,29 @@ MySQL 6.0.6版本的驱动有两个：`com.mysql.jdbc.Driver`和`com.mysql.cj.jd
     
 ### LoadBalancedConnection
 `LoadBalancedConnection`是一个逻辑连接(`LoadBalancedConnectionProxy`)，其内部持有一个`Map<String, ConnectionImpl> liveConnections`属性用于存放到每一个主机的物理连接。
+MySQL提供的负载策略有3种，分别为
+1. com.mysql.cj.jdbc.ha.RandomBalanceStrategy
+2. com.mysql.cj.jdbc.ha.BestResponseTimeBalanceStrategy
+3. com.mysql.cj.jdbc.ha.SequentialBalanceStrategy
+
+默认会使用第一种，即random，策略选择源码如下：(`见public LoadBalancedConnectionProxy(LoadbalanceConnectionUrl connectionUrl)`)
+
+    String strategy = props.getProperty(PropertyDefinitions.PNAME_loadBalanceStrategy, "random");
+    try {
+        switch (strategy) {
+            case "random":
+                this.balancer = new RandomBalanceStrategy();
+                break;
+            case "bestResponseTime":
+                this.balancer = new BestResponseTimeBalanceStrategy();
+                break;
+            default:
+                this.balancer = (BalanceStrategy) Class.forName(strategy).newInstance();
+        }
+    } catch (Throwable t) {
+        throw SQLError.createSQLException(Messages.getString("InvalidLoadBalanceStrategy", new Object[] { strategy }), SQLError.SQL_STATE_ILLEGAL_ARGUMENT,
+                t, null);
+    }
 ### ReplicationConnection
 `slaves`的负载均衡与`LoadBalancedConnection`一致，由`public synchronized void setReadOnly(boolean readOnly)`方法来做`master-slave`的切换，
 具体方法实现看`com.mysql.cj.jdbc.ha.ReplicationMySQLConnection.setReadOnly(boolean readOnlyFlag)`。
