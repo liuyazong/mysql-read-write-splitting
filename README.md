@@ -1,7 +1,7 @@
 # 数据库读写分离
 介绍两种读写分离方案
 1. 基于`Spring`
-2. 介于`MySQL`驱动
+2. 基于`MySQL`驱动
 ## Spring
 ### AbstractRoutingDataSource
 基于`Spring`的数据库读写分离，主要在`AbstractRoutingDataSource`类中实现。
