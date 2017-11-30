@@ -130,8 +130,8 @@
 [MySQL multi host connection 文档](https://dev.mysql.com/doc/connector-j/5.1/en/connector-j-multi-host-connections.html)
 
 MySQL 6.0.6版本的驱动有两个：`com.mysql.jdbc.Driver`和`com.mysql.cj.jdbc.Driver`，
-其共同父类为`com.mysql.cj.jdbc.NonRegisteringDriver`，建议使用`com.mysql.cj.jdbc.Driver`，
-(在5.1.42版本的驱动中，则需要使用`com.mysql.jdbc.ReplicationDriver`)
+其共同父类为`com.mysql.cj.jdbc.NonRegisteringDriver`，建议使用`com.mysql.cj.jdbc.Driver`
+(在5.1.42版本的驱动中，则需要使用`com.mysql.jdbc.ReplicationDriver`)，
 主从读写分离是在该类的`public java.sql.Connection connect(String url, Properties info)`方法中实现的。
 它根据配置的connection url解析出不同的连接类型，如下：
     
