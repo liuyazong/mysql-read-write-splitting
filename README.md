@@ -275,4 +275,55 @@ MySQL提供的负载策略有3种，分别为
 2. MySQL驱动方式必须主从库用户名、密码一致，而Spring更灵活
 3. Spring需要更多的配置，而MySQL驱动方式配置简单
 
+## 单机下主从搭建
+### MySQL安装
 
+        brew install mysql;
+### 编辑配置文件
+
+* master my.cnf
+
+        [mysqld]
+        bind-address = 127.0.0.1
+        port = 3306 
+        basedir = /usr/local/opt/mysql
+        datadir = /usr/local/var/mysql
+        socket = /tmp/mysql.sock3306
+        server-id=1	#服务器的标识  要和slave不一样
+        log-bin=mysql-bin	#二进制文件存放路径 (说明开启了二进制日志,关键点)
+* slave my.cnf
+
+        [mysqld]
+        bind-address = 127.0.0.1
+        port = 3307 
+        basedir = /usr/local/opt/mysql
+        datadir = /usr/local/var/mysql3307
+        socket = /tmp/mysql.sock3307
+        server-id=2		 #服务器的标识  要和master不一样
+        binlog-do-db=dev	#是你需要复制的数据库名称，如果有多个就用逗号“,”分开;或者分行写
+
+### 初始化数据库
+ 
+    mysqld --defaults-file=/path/to/my.cnf  —initialize #这个会在控制台打印出生成的随机密码，切记要记下来 
+    mysqld --defaults-file=/path/to/my.cnf —initialize-insecure #无密码
+  
+### 配置主从同步
+
+* 登录master
+
+        create user 'slave'@'127.0.0.1' identified by 'slave';
+        GRANT REPLICATION SLAVE ON *.* TO 'slave'@'127.0.0.1’;
+        show master status;
+* 登录slave
+
+        stop slave;#停止同步
+        reset slave;
+        change master to 
+        master_host='127.0.0.1',
+        master_user='slave',#主库上新建的用户名
+        master_password='slave',##对应的密码
+        master_log_file='mysql-bin.000005',#主库show master status结果中复制
+        master_log_pos=1483;#主库show master status结果中复制
+        start slave user='slave' password='slave' ;#开始同步
+        show slave status;
+* 完成
