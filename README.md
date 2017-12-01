@@ -275,10 +275,11 @@ MySQL提供的负载策略有3种，分别为
 2. MySQL驱动方式必须主从库用户名、密码一致，而Spring更灵活
 3. Spring需要更多的配置，而MySQL驱动方式配置简单
 
-## 单机下主从搭建
+## 主从搭建
 ### MySQL安装
 
         brew install mysql;
+        
 ### 编辑配置文件
 
 * master my.cnf
@@ -304,8 +305,8 @@ MySQL提供的负载策略有3种，分别为
 
 ### 初始化数据库
  
-    mysqld --defaults-file=/path/to/my.cnf  —initialize #这个会在控制台打印出生成的随机密码，切记要记下来 
-    mysqld --defaults-file=/path/to/my.cnf —initialize-insecure #无密码
+        mysqld --defaults-file=/path/to/my.cnf  —initialize #这个会在控制台打印出生成的随机密码，切记要记下来 
+        mysqld --defaults-file=/path/to/my.cnf —initialize-insecure #无密码
   
 ### 配置主从同步
 
